@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = IdentityNetCore
+build_property.ProjectDir = C:\$git\asp-net-core-identity-v2\Starter\IdentityNetCore\
