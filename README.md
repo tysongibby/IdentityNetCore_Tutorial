@@ -5,7 +5,7 @@ https://www.udemy.com/course/aspnet-core-2-security-and-identity-management-with
 
 Key concepts:
 - Identity – unique set of characteristics that can be used to identify a user as themselves and no one else.
-- Role – a function a user has in a given context
+- Role – a function a user has in a given application
 - Claim – assertion of a user’s permission to perform certain tasks based on their role
 
 Authentication types:
