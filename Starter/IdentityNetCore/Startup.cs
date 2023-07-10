@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
+using IdentityNetCore.Email;
 
 namespace IdentityNetCore
 {
@@ -25,14 +26,28 @@ namespace IdentityNetCore
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connString));
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.Configure<IdentityOptions>(options => { 
+
                 options.Password.RequiredLength = 3;
                 options.Password.RequireDigit = true;
                 options.Password.RequireNonAlphanumeric = false;
+
                 options.Lockout.MaxFailedAccessAttempts = 3;
                 options.Lockout.DefaultLockoutTimeSpan = System.TimeSpan.FromMinutes(10);
+
+                options.SignIn.RequireConfirmedEmail = true;
                 
             });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Identity/Signin";
+                options.AccessDeniedPath = "/Identity/AccessDenied";
+            });
+
+            services.Configure<IEmailService>(Configuration.GetSection("SmtpSettings"));
+
             services.AddControllersWithViews();
         }
 
